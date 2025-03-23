@@ -9,7 +9,26 @@
     align-items: center;
     justify-content: center;
 }
-hero-text{
+.hero-text{
     text-align: center;
     max-width: 800px;
+}
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+}
+.hero-logo {
+    max-width: 200px; /* Adjust size as needed */
+    margin-bottom: 2rem; /* Space between logo and text */
+}
+
+.hero-text .btn {
+    margin-top: 2rem; /* Adjust this value to increase/decrease spacing */
+}
+
+.btn {
+    display: inline-block;
+    margin: 0 auto; /* Centers the button */
 }
