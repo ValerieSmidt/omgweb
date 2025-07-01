@@ -1,39 +1,46 @@
-.events-section {
-    padding: 4rem 0;
-    background-color: #f8f8f8;
-    min-height: 400px;
-  }
-  
-  .events-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 250px;
-  }
-  
-  .loading-message {
-    font-size: 1.2rem;
-    color: #666;
-    text-align: center;
-  }
-  
-  .no-events-message {
-    font-size: 1.5rem;
-    color: #666;
-    padding: 2rem;
-    text-align: center;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  .events-list {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-  
-  /* You would add styling for individual event cards here when you have events */
+/* Center container */
+.events-container {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+/* Heading */
+.events-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* Card styling */
+.event-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Optional: link styling */
+.event-link {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #3772ff;
+  text-decoration: none;
+}
+
+/* Swiper arrows */
+.swiper-button-prev,
+.swiper-button-next {
+  color: #333;
+}
+
+.swiper-button-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}

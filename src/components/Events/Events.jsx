@@ -1,58 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './Events.css';
+import React, { useEffect, useState } from 'react';
+import './events.css';
 
-export const Events = () => {
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+const Events = () => {
   const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currentEventIndex, setCurrentEventIndex] = useState(0);
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/events'); // Call the backend
-        setEvents(response.data); // Use the data from the backend
-      } catch (error) {
-        console.error('Error fetching events:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchEvents();
+    fetch('/events.json')
+      .then((res) => res.json())
+      .then((data) => setEvents(data))
+      .catch((err) => console.error('Failed to fetch events:', err));
   }, []);
 
-  const handleNextEvent = () => {
-    setCurrentEventIndex((prevIndex) => (prevIndex + 1) % events.length);
-  };
-
-  const handlePreviousEvent = () => {
-    setCurrentEventIndex((prevIndex) => (prevIndex - 1 + events.length) % events.length);
-  };
-
   return (
-    <div className='events-section'>
-      <div className='container'>
-        <h2>Upcoming Events</h2>
-        <div className='events-content'>
-          {loading ? (
-            <div className='loading-message'>Loading events...</div>
-          ) : events.length > 0 ? (
-            <div className='event-display'>
-              <button onClick={handlePreviousEvent} className='arrow-btn'>←</button>
-              <div className='event-details'>
-                <h3>{events[currentEventIndex].name}</h3>
-                <p>{events[currentEventIndex].description}</p>
-                <p><strong>Date:</strong> {new Date(events[currentEventIndex].scheduled_start_time).toLocaleString()}</p>
-                <p><strong>Location:</strong> {events[currentEventIndex].location || 'TBD'}</p>
-              </div>
-              <button onClick={handleNextEvent} className='arrow-btn'>→</button>
+    <div className="events-container">
+      <h1 className="events-heading">Upcoming Events</h1>
+      <Swiper
+        modules={[Navigation]}
+        navigation
+        spaceBetween={20}
+        slidesPerView={events.length === 1 ? 1 : 2}
+        centeredSlides={events.length === 1}
+        breakpoints={{
+          0: {
+            slidesPerView: 1,
+            centeredSlides: events.length === 1,
+          },
+          768: {
+            slidesPerView: events.length === 1 ? 1 : 2,
+            centeredSlides: events.length === 1,
+          },
+        }}
+      >
+        {events.map((event) => (
+          <SwiperSlide key={event.id}>
+            <div className="event-card">
+              <h2 className="event-title">{event.title}</h2>
+              <p className="event-date">Date: {event.date}</p>
+              <p className="event-location">Location: {event.location}</p>
+              <p className="event-description">{event.description}</p>
+              <a
+                href={event.url}
+                className="event-link"
+                target="_blank"
+                rel="noreferrer"
+              >
+                View on Discord
+              </a>
             </div>
-          ) : (
-            <div className='no-events-message'>No events found :(</div>
-          )}
-        </div>
-      </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };
