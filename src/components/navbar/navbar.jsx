@@ -1,10 +1,10 @@
 import React from 'react'
-import './navbar.css'
+import './Navbar.css'
 import logo from '../../assets/logo.png'
-const navbar = () => {
+const Navbar = () => {
   return (
     <nav className='container'>
-        <img src={logo} alt="" className='logo' />
+        <img src={logo} alt="OsloMetGaming Logo" className='logo' />
         <ul>
             <li>Events</li>
             <li>Membership</li>
@@ -13,8 +13,9 @@ const navbar = () => {
             <li>About us</li>
             <li><button className='btn'>Norsk</button></li>
         </ul>
+        
     </nav>
   )
 }
 
-export default navbar
+export default Navbar
